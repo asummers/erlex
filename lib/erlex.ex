@@ -115,7 +115,7 @@ defmodule Erlex do
     end
   end
 
-  def do_pretty_print_contract(str) do
+  defp do_pretty_print_contract(str) do
     prefix = "@spec a"
     suffix = "\ndef a() do\n  :ok\nend"
     pretty = pretty_print(str)
