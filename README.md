@@ -12,7 +12,7 @@ state. NOTE: Because this code calls the Elixir formatter, it requires
 Elixir 1.6+.
 
 ## Documentation
-[Hex Docs](https://hexdocs.pm/erlex)
+[Hex Docs](https://hexdocs.pm/erlex).
 
 ## Installation
 
@@ -62,7 +62,7 @@ iex> Erlex.pretty_print_contract(str)
 ```
 ## Contributing
 
-We welcome contributions of all kinds! To get started, click [here](https://github.com/asummers/erlex/blob/master/CONTRIBUTING.md)
+We welcome contributions of all kinds! To get started, click [here](https://github.com/asummers/erlex/blob/master/CONTRIBUTING.md).
 
 ## Code of Conduct
 
