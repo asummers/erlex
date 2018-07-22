@@ -10,6 +10,7 @@ defmodule Erlex.MixProject do
       deps: deps(),
       description: description(),
       package: package(),
+      docs: docs(),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
@@ -39,6 +40,14 @@ defmodule Erlex.MixProject do
     """
     Convert Erlang style structs and error messages to equivalent Elixir.
     """
+  end
+
+  defp docs() do
+    [
+      main: "readme",
+      source_url: "https://github.com/asummers/erlex",
+      extras: ["README.md"]
+    ]
   end
 
   defp package do
