@@ -47,7 +47,7 @@ defmodule Erlex.MixProject do
       main: "readme",
       source_url: "https://github.com/asummers/erlex",
       homepage_url: "https://github.com/asummers/erlex",
-      extras: ["README.md"]
+      extras: ["README.md", "CHANGELOG.md"]
     ]
   end
 

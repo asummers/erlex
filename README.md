@@ -14,6 +14,10 @@ Elixir 1.6+.
 ## Documentation
 [Hex Docs](https://hexdocs.pm/erlex).
 
+## Changelog
+
+Check out the [Changelog](https://github.com/asummers/erlex/blob/master/CHANGELOG.md).
+
 ## Installation
 
 The package can be installed from Hex by adding `erlex` to your list
@@ -22,7 +26,7 @@ of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:erlex, "~> 0.1.0"},
+    {:erlex, "~> 0.1"},
   ]
 end
 ```
