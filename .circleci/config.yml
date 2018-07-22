@@ -10,8 +10,8 @@ jobs:
       - checkout
       - run: mix local.hex --force
       - run: mix local.rebar --force
-      - run: mix deps.get
       - run: mix format --check-formatted
+      - run: mix deps.get
       - run: mix compile --warnings-as-errors --force
       - run: mix credo list --format=oneline --strict
       - run: mix test

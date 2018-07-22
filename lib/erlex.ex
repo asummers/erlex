@@ -23,14 +23,14 @@ defmodule Erlex do
     end
   end
 
-  @spec pretty_print_infix(String.t()) :: String.t()
+  @spec pretty_print_infix(infix :: String.t()) :: String.t()
   def pretty_print_infix('=:='), do: "==="
   def pretty_print_infix('=/='), do: "!=="
   def pretty_print_infix('/='), do: "!="
-  def pretty_print_infix('!='), do: "<="
-  def pretty_print_infix(other), do: to_string(other)
+  def pretty_print_infix('=<'), do: "<="
+  def pretty_print_infix(infix), do: to_string(infix)
 
-  @spec pretty_print(String.t()) :: String.t()
+  @spec pretty_print(str :: String.t()) :: String.t()
   def pretty_print(str) do
     parsed =
       str
@@ -46,7 +46,7 @@ defmodule Erlex do
     end
   end
 
-  @spec pretty_print_pattern(String.t()) :: String.t()
+  @spec pretty_print_pattern(pattern :: String.t()) :: String.t()
   def pretty_print_pattern('pattern ' ++ rest) do
     pretty_print_type(rest)
   end
@@ -55,7 +55,8 @@ defmodule Erlex do
     pretty_print_type(pattern)
   end
 
-  @spec pretty_print_contract(String.t(), String.t(), String.t()) :: String.t()
+  @spec pretty_print_contract(str :: String.t(), module :: String.t(), function :: String.t()) ::
+          String.t()
   def pretty_print_contract(str, module, function) do
     multiple_heads? =
       str
@@ -91,38 +92,38 @@ defmodule Erlex do
     end
   end
 
-  @spec pretty_print_contract(String.t()) :: String.t()
-  def pretty_print_contract(str) do
+  @spec pretty_print_contract(contract :: String.t()) :: String.t()
+  def pretty_print_contract(contract) do
     multiple_heads? =
-      str
+      contract
       |> to_string()
       |> String.contains?(";")
 
     if multiple_heads? do
       [head | tail] =
-        str
+        contract
         |> to_string()
         |> String.split(";")
 
       joiner = "Contract head: "
 
       pretty =
-        Enum.map_join([head | tail], joiner, fn str ->
-          str
+        Enum.map_join([head | tail], joiner, fn contract ->
+          contract
           |> to_charlist()
           |> do_pretty_print_contract()
         end)
 
       joiner <> pretty
     else
-      do_pretty_print_contract(str)
+      do_pretty_print_contract(contract)
     end
   end
 
-  defp do_pretty_print_contract(str) do
+  defp do_pretty_print_contract(contract) do
     prefix = "@spec a"
     suffix = "\ndef a() do\n  :ok\nend"
-    pretty = pretty_print(str)
+    pretty = pretty_print(contract)
 
     """
     @spec a#{pretty}
@@ -137,12 +138,12 @@ defmodule Erlex do
     |> String.replace("\n      ", "\n")
   end
 
-  @spec pretty_print_type(String.t()) :: String.t()
-  def pretty_print_type(str) do
+  @spec pretty_print_type(type :: String.t()) :: String.t()
+  def pretty_print_type(type) do
     prefix = "@spec a("
     suffix = ") :: :ok\ndef a() do\n  :ok\nend"
     indented_suffix = ") ::\n        :ok\ndef a() do\n  :ok\nend"
-    pretty = pretty_print(str)
+    pretty = pretty_print(type)
 
     """
     @spec a(#{pretty}) :: :ok
@@ -158,11 +159,11 @@ defmodule Erlex do
     |> String.replace("\n      ", "\n")
   end
 
-  @spec pretty_print_args(String.t()) :: String.t()
-  def pretty_print_args(str) do
+  @spec pretty_print_args(args :: String.t()) :: String.t()
+  def pretty_print_args(args) do
     prefix = "@spec a"
     suffix = " :: :ok\ndef a() do\n  :ok\nend"
-    pretty = pretty_print(str)
+    pretty = pretty_print(args)
 
     """
     @spec a#{pretty} :: :ok
