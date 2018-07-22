@@ -23,14 +23,14 @@ defmodule Erlex do
     end
   end
 
-  @spec pretty_print_infix(charlist()) :: String.t()
+  @spec pretty_print_infix(String.t()) :: String.t()
   def pretty_print_infix('=:='), do: "==="
   def pretty_print_infix('=/='), do: "!=="
   def pretty_print_infix('/='), do: "!="
   def pretty_print_infix('!='), do: "<="
   def pretty_print_infix(other), do: to_string(other)
 
-  @spec pretty_print(charlist()) :: String.t()
+  @spec pretty_print(String.t()) :: String.t()
   def pretty_print(str) do
     parsed =
       str
@@ -46,7 +46,7 @@ defmodule Erlex do
     end
   end
 
-  @spec pretty_print_pattern(charlist()) :: String.t()
+  @spec pretty_print_pattern(String.t()) :: String.t()
   def pretty_print_pattern('pattern ' ++ rest) do
     pretty_print_type(rest)
   end
@@ -55,7 +55,7 @@ defmodule Erlex do
     pretty_print_type(pattern)
   end
 
-  @spec pretty_print_contract(charlist(), charlist(), charlist()) :: String.t()
+  @spec pretty_print_contract(String.t(), String.t(), String.t()) :: String.t()
   def pretty_print_contract(str, module, function) do
     multiple_heads? =
       str
@@ -91,7 +91,7 @@ defmodule Erlex do
     end
   end
 
-  @spec pretty_print_contract(charlist()) :: String.t()
+  @spec pretty_print_contract(String.t()) :: String.t()
   def pretty_print_contract(str) do
     multiple_heads? =
       str
@@ -137,7 +137,7 @@ defmodule Erlex do
     |> String.replace("\n      ", "\n")
   end
 
-  @spec pretty_print_type(charlist()) :: String.t()
+  @spec pretty_print_type(String.t()) :: String.t()
   def pretty_print_type(str) do
     prefix = "@spec a("
     suffix = ") :: :ok\ndef a() do\n  :ok\nend"
@@ -158,7 +158,7 @@ defmodule Erlex do
     |> String.replace("\n      ", "\n")
   end
 
-  @spec pretty_print_args(charlist()) :: String.t()
+  @spec pretty_print_args(String.t()) :: String.t()
   def pretty_print_args(str) do
     prefix = "@spec a"
     suffix = " :: :ok\ndef a() do\n  :ok\nend"
