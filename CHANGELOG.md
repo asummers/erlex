@@ -10,4 +10,4 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 - Changelog, CI, docs
 - Initial functionality and tests
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/asummers/erlex/compare/v0.1.0...HEAD
