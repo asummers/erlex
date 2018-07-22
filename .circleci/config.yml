@@ -16,6 +16,6 @@ jobs:
       - run: mix credo list --format=oneline --strict
       - run: mix test
       - store_test_results:
-          path: /tmp/repo-example-test-results
+          path: /tmp/exerl-test-results
       - run: mix coveralls.json
       - run: bash <(curl -s https://codecov.io/bash)
