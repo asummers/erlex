@@ -7,6 +7,13 @@
 
 Convert Erlang style structs and error messages to equivalent Elixir.
 
+Useful for pretty printing things like Dialyzer errors and Observer
+state. NOTE: Because this code calls the Elixir formatter, it requires
+Elixir 1.6+.
+
+## Documentation
+[Hex Docs](https://hexdocs.pm/erlex)
+
 ## Installation
 
 The package can be installed from Hex by adding `erlex` to your list
@@ -20,6 +27,36 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/erlex](https://hexdocs.pm/erlex).
+## Usage
+
+Invoke `Erlex.pretty_print/1` wuth the input string.
+
+```elixir
+iex> str = ~S"('Elixir.Plug.Conn':t(),binary() | atom(),'Elixir.Keyword':t() | map()) -> 'Elixir.Plug.Conn':t()"
+iex> Erlex.pretty_print(str)
+(Plug.Conn.t(), binary() | atom(), Keyword.t() | map()) :: Plug.Conn.t()
+```
+
+While the lion's share of the work is done via invoking
+`Erlex.pretty_print/1`, other higher order functions exist for further
+formatting certain messages by running through the Elixir formatter.
+Because we know the previous example is a type, we can invoke the
+`Erlex.pretty_print_contract/1` function, which would format that
+appropriately for very long lines.
+
+```elixir
+iex> str = ~S"('Elixir.Plug.Conn':t(),binary() | atom(),'Elixir.Keyword':t() | map(), map() | atom(), non_neg_integer(), binary(), binary(), binary(), binary(), binary()) -> 'Elixir.Plug.Conn':t()"
+iex> Erlex.pretty_print_contract(str)
+(
+  Plug.Conn.t(),
+  binary() | atom(),
+  Keyword.t() | map(),
+  map() | atom(),
+  non_neg_integer(),
+  binary(),
+  binary(),
+  binary(),
+  binary(),
+  binary()
+) :: Plug.Conn.t()
+```

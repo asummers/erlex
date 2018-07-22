@@ -55,8 +55,11 @@ defmodule Erlex do
     pretty_print_type(pattern)
   end
 
-  @spec pretty_print_contract(contract :: String.t(), module :: String.t(), function :: String.t()) ::
-          String.t()
+  @spec pretty_print_contract(
+          contract :: String.t(),
+          module :: String.t(),
+          function :: String.t()
+        ) :: String.t()
   def pretty_print_contract(contract, module, function) do
     multiple_heads? =
       contract
