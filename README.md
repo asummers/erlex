@@ -60,3 +60,10 @@ iex> Erlex.pretty_print_contract(str)
   binary()
 ) :: Plug.Conn.t()
 ```
+## Contributing
+
+We welcome contributions of all kinds! To get started, click [here](https://github.com/asummers/erlex/blob/master/CONTRIBUTING.md)
+
+## Code of Conduct
+
+Be sure to read and follow the [code of conduct](https://github.com/asummers/erlex/blob/master/code-of-conduct.md).
