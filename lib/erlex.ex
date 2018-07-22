@@ -1,6 +1,43 @@
 defmodule Erlex do
   @moduledoc """
   Convert Erlang style structs and error messages to equivalent Elixir.
+
+  Lexes and parses the Erlang output, then runs through pretty
+  printer.
+
+  ## Usage
+
+  Invoke `Erlex.pretty_print/1` wuth the input string.
+
+  ```elixir
+  iex> str = ~S"('Elixir.Plug.Conn':t(),binary() | atom(),'Elixir.Keyword':t() | map()) -> 'Elixir.Plug.Conn':t()"
+  iex> Erlex.pretty_print(str)
+  (Plug.Conn.t(), binary() | atom(), Keyword.t() | map()) :: Plug.Conn.t()
+  ```
+
+  While the lion's share of the work is done via invoking
+  `Erlex.pretty_print/1`, other higher order functions exist for further
+  formatting certain messages by running through the Elixir formatter.
+  Because we know the previous example is a type, we can invoke the
+  `Erlex.pretty_print_contract/1` function, which would format that
+  appropriately for very long lines.
+
+  ```elixir
+  iex> str = ~S"('Elixir.Plug.Conn':t(),binary() | atom(),'Elixir.Keyword':t() | map(), map() | atom(), non_neg_integer(), binary(), binary(), binary(), binary(), binary()) -> 'Elixir.Plug.Conn':t()"
+  iex> Erlex.pretty_print_contract(str)
+  (
+    Plug.Conn.t(),
+    binary() | atom(),
+    Keyword.t() | map(),
+    map() | atom(),
+    non_neg_integer(),
+    binary(),
+    binary(),
+    binary(),
+    binary(),
+    binary()
+  ) :: Plug.Conn.t()
+  ```
   """
 
   defp lex(str) do
