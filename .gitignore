@@ -1,0 +1,11 @@
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+erl_crash.dump
+*.ez
+erlex-*.tar
+.elixir_ls
+src/parser.erl
+src/lexer.erl
