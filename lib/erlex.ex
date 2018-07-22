@@ -55,11 +55,11 @@ defmodule Erlex do
     pretty_print_type(pattern)
   end
 
-  @spec pretty_print_contract(str :: String.t(), module :: String.t(), function :: String.t()) ::
+  @spec pretty_print_contract(contract :: String.t(), module :: String.t(), function :: String.t()) ::
           String.t()
-  def pretty_print_contract(str, module, function) do
+  def pretty_print_contract(contract, module, function) do
     multiple_heads? =
-      str
+      contract
       |> to_string()
       |> String.contains?(";")
 
@@ -67,7 +67,7 @@ defmodule Erlex do
     # not sure how to make it happen generally.
     if multiple_heads? do
       [head | tail] =
-        str
+        contract
         |> to_string()
         |> String.split(";")
 
@@ -80,15 +80,15 @@ defmodule Erlex do
       joiner = "Contract head: "
 
       pretty =
-        Enum.map_join([head | tail], joiner, fn str ->
-          str
+        Enum.map_join([head | tail], joiner, fn contract ->
+          contract
           |> to_charlist()
           |> pretty_print_contract()
         end)
 
       joiner <> pretty
     else
-      pretty_print_contract(str)
+      pretty_print_contract(contract)
     end
   end
 
