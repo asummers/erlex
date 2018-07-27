@@ -33,7 +33,7 @@ end
 
 ## Usage
 
-Invoke `Erlex.pretty_print/1` wuth the input string.
+Invoke `Erlex.pretty_print/1` with the input string.
 
 ```elixir
 iex> str = ~S"('Elixir.Plug.Conn':t(),binary() | atom(),'Elixir.Keyword':t() | map()) -> 'Elixir.Plug.Conn':t()"
