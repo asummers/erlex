@@ -105,12 +105,12 @@ defmodule Erlex do
 
     head =
       if Enum.empty?(tail) do
-          head
+        head
       else
-          head
-          |> String.trim_leading(to_string(module))
-          |> String.trim_leading(":")
-          |> String.trim_leading(to_string(function))
+        head
+        |> String.trim_leading(to_string(module))
+        |> String.trim_leading(":")
+        |> String.trim_leading(to_string(function))
       end
 
     joiner = "\n"
