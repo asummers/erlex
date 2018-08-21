@@ -113,7 +113,7 @@ defmodule Erlex do
         head
       end
 
-    joiner = ""
+    joiner = "\n"
 
     Enum.map_join([head | tail], joiner, fn contract ->
       contract
