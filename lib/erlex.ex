@@ -104,13 +104,13 @@ defmodule Erlex do
       |> String.split(";")
 
     head =
-      if tail != [] do
-        head
-        |> String.trim_leading(to_string(module))
-        |> String.trim_leading(":")
-        |> String.trim_leading(to_string(function))
+      if Enum.empty?(tail) do
+          head
       else
-        head
+          head
+          |> String.trim_leading(to_string(module))
+          |> String.trim_leading(":")
+          |> String.trim_leading(to_string(function))
       end
 
     joiner = "\n"
