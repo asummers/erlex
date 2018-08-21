@@ -291,7 +291,7 @@ defmodule Erlex.Test.PretyPrintTest do
       )
 
     expected_output =
-      "Contract head: (any(), nil) :: nilContract head: (Ecto.Queryable.t(), String.t()) :: String.t()"
+      "Contract head: (any(), nil) :: nil\nContract head: (Ecto.Queryable.t(), String.t()) :: String.t()"
 
     assert pretty_printed == expected_output
   end

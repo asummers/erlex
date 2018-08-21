@@ -98,66 +98,47 @@ defmodule Erlex do
           function :: String.t()
         ) :: String.t()
   def pretty_print_contract(contract, module, function) do
-    multiple_heads? =
+    [head | tail] =
       contract
       |> to_string()
-      |> String.contains?(";")
+      |> String.split(";")
 
-    # TODO: This is kind of janky but I've only seen this once and am
-    # not sure how to make it happen generally.
-    if multiple_heads? do
-      [head | tail] =
-        contract
-        |> to_string()
-        |> String.split(";")
+    head =
+      if Enum.empty?(tail) do
+          head
+      else
+          head
+          |> String.trim_leading(to_string(module))
+          |> String.trim_leading(":")
+          |> String.trim_leading(to_string(function))
+      end
 
-      head =
-        head
-        |> String.trim_leading(to_string(module))
-        |> String.trim_leading(":")
-        |> String.trim_leading(to_string(function))
+    joiner = "\n"
 
-      joiner = "Contract head: "
-
-      pretty =
-        Enum.map_join([head | tail], joiner, fn contract ->
-          contract
-          |> to_charlist()
-          |> pretty_print_contract()
-        end)
-
-      joiner <> pretty
-    else
-      pretty_print_contract(contract)
-    end
+    Enum.map_join([head | tail], joiner, fn contract ->
+      contract
+      |> to_charlist()
+      |> pretty_print_contract()
+    end)
   end
 
   @spec pretty_print_contract(contract :: String.t()) :: String.t()
   def pretty_print_contract(contract) do
-    multiple_heads? =
+    heads =
       contract
       |> to_string()
-      |> String.contains?(";")
+      |> String.split(";")
 
-    if multiple_heads? do
-      [head | tail] =
+    joiner = "Contract head: "
+
+    pretty =
+      Enum.map_join(heads, joiner, fn contract ->
         contract
-        |> to_string()
-        |> String.split(";")
+        |> to_charlist()
+        |> do_pretty_print_contract()
+      end)
 
-      joiner = "Contract head: "
-
-      pretty =
-        Enum.map_join([head | tail], joiner, fn contract ->
-          contract
-          |> to_charlist()
-          |> do_pretty_print_contract()
-        end)
-
-      joiner <> pretty
-    else
-      do_pretty_print_contract(contract)
-    end
+    joiner <> pretty
   end
 
   defp do_pretty_print_contract(contract) do
