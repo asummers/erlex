@@ -291,7 +291,7 @@ defmodule Erlex.Test.PretyPrintTest do
       )
 
     expected_output =
-      "Contract head: (any(), nil) :: nil\nContract head: (Ecto.Queryable.t(), String.t()) :: String.t()"
+      "Contract head:\n(any(), nil) :: nil\nContract head:\n(Ecto.Queryable.t(), String.t()) :: String.t()"
 
     assert pretty_printed == expected_output
   end
@@ -394,6 +394,19 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "when clauses in contracts pretty print appropriately" do
+    input = ~S"""
+    (Atom,Encoding) -> binary() when Atom :: atom(), Encoding :: 'latin1' | 'utf8'
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output =
+      "(:Atom, :Encoding) :: binary() when Atom: atom(), Encoding: :latin1 | :utf8"
+
+    assert pretty_printed == expected_output
+  end
+
   test "binary transformation layer pretty prints appropriately" do
     input = ~S"""
     <<_:_*8>>
@@ -479,7 +492,7 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print_contract(input)
 
     expected_output =
-      "Contract head: (nil, Dnsimple.Events.HostCreateRequested.t()) ::\n  {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}Contract head: (\n  {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()},\n  Dnsimple.Events.HostCreateSucceeded.t()\n) :: {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}"
+      "Contract head:\n(nil, Dnsimple.Events.HostCreateRequested.t()) ::\n  {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}\nContract head:\n(\n  {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()},\n  Dnsimple.Events.HostCreateSucceeded.t()\n) :: {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}"
 
     assert pretty_printed == expected_output
   end

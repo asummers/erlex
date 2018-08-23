@@ -97,6 +97,7 @@ assignment -> value '=' value : {assignment, '$1', '$3'}.
 
 byte -> '#' '<' int '>' '(' int ',' int ',' atom ',' '[' atom ',' atom ']' ')' : unwrap('$3').
 
+contract -> list '->' value value_items : {contract, {args, '$1'}, {return, '$3'}, {whens, '$4'}}.
 contract -> list '->' value : {contract, {args, '$1'}, {return, '$3'}}.
 
 integer -> int : {int, unwrap('$1')}.

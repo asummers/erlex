@@ -104,41 +104,37 @@ defmodule Erlex do
       |> String.split(";")
 
     head =
-      if Enum.empty?(tail) do
-        head
-      else
-        head
-        |> String.trim_leading(to_string(module))
-        |> String.trim_leading(":")
-        |> String.trim_leading(to_string(function))
-      end
+      head
+      |> String.trim_leading(to_string(module))
+      |> String.trim_leading(":")
+      |> String.trim_leading(to_string(function))
 
-    joiner = "\n"
-
-    Enum.map_join([head | tail], joiner, fn contract ->
-      contract
-      |> to_charlist()
-      |> pretty_print_contract()
-    end)
+    [head | tail]
+    |> Enum.join(";")
+    |> pretty_print_contract()
   end
 
   @spec pretty_print_contract(contract :: String.t()) :: String.t()
   def pretty_print_contract(contract) do
-    heads =
+    [head | tail] =
       contract
       |> to_string()
       |> String.split(";")
 
-    joiner = "Contract head: "
+    if Enum.empty?(tail) do
+      do_pretty_print_contract(head)
+    else
+      joiner = "Contract head:\n"
 
-    pretty =
-      Enum.map_join(heads, joiner, fn contract ->
-        contract
-        |> to_charlist()
-        |> do_pretty_print_contract()
-      end)
+      pretty =
+        Enum.map_join([head | tail], "\n" <> joiner, fn contract ->
+          contract
+          |> to_charlist()
+          |> do_pretty_print_contract()
+        end)
 
-    joiner <> pretty
+      joiner <> pretty
+    end
   end
 
   defp do_pretty_print_contract(contract) do
@@ -262,6 +258,18 @@ defmodule Erlex do
     |> inspect()
   end
 
+  defp do_pretty_print({:contract, {:args, args}, {:return, return}, {:whens, whens}}) do
+    [{:named_type, {:atom, ['w', 'h', 'e', 'n' | rest_name]}, type_list} | rest_types] = whens
+    whens = [{:named_type, {:atom, rest_name}, type_list} | rest_types]
+
+    printed_whens =
+      Enum.map_join(whens, ", ", fn {_, name, type} ->
+        do_pretty_print({:named_type_with_appended_colon, name, type})
+      end)
+
+    "#{do_pretty_print(args)} :: #{do_pretty_print(return)} when #{printed_whens}"
+  end
+
   defp do_pretty_print({:contract, {:args, args}, {:return, return}}) do
     "#{do_pretty_print(args)} :: #{do_pretty_print(return)}"
   end
@@ -328,6 +336,23 @@ defmodule Erlex do
       "%#{struct_name}{#{Enum.map_join(entries, ", ", &do_pretty_print/1)}}"
     else
       "%{#{Enum.map_join(entries, ", ", &do_pretty_print/1)}}"
+    end
+  end
+
+  defp do_pretty_print({:named_type_with_appended_colon, named_type, type})
+       when is_tuple(named_type) and is_tuple(type) do
+    case named_type do
+      {:atom, name} ->
+        name =
+          name
+          |> deatomize()
+          |> to_string()
+          |> strip_var_version()
+
+        "#{name}: #{do_pretty_print(type)}"
+
+      other ->
+        "#{do_pretty_print(other)}: #{do_pretty_print(type)}"
     end
   end
 
