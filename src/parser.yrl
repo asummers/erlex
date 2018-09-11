@@ -71,6 +71,7 @@ binary -> '<<' binary_items '>>' : {binary, '$2'}.
 
 pattern -> '<' value_items '>' : {pattern, '$2'}.
 
+tuple -> '{' '}' : {tuple, []}.
 tuple -> '{' value_items '}' : {tuple, '$2'}.
 
 byte_list -> '#' '{' '}' '#' : {byte_list, []}.
