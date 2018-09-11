@@ -7,7 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## 0.1.3 - 2018-09-10
 ### Added
-- Add ability to parse empty tuples.
+- Add ability to parse empty tuples
+- Bump ex_doc
 
 ## 0.1.2 - 2018-08-26
 ### Added
