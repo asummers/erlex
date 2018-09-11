@@ -234,6 +234,50 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "empty paren lists are pretty printed appropriately" do
+    input = ~S"""
+    ()
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output = "()"
+    assert pretty_printed == expected_output
+  end
+
+  test "empty square lists are pretty printed appropriately" do
+    input = ~S"""
+    []
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output = "[]"
+    assert pretty_printed == expected_output
+  end
+
+  test "empty maps are pretty printed appropriately" do
+    input = ~S"""
+    #{}
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output = "%{}"
+    assert pretty_printed == expected_output
+  end
+
+  test "empty tuples are pretty printed appropriately" do
+    input = ~S"""
+    {}
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output = "{}"
+    assert pretty_printed == expected_output
+  end
+
   test "integers in maps are pretty printed appropriately" do
     input = ~S"""
     #{'source':={[any()] | 98971880 | map()}}
