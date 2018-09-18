@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## 0.1.4 - 2018-09-17
+### Added
+- Add ability to parse whens in specs.
+
 ## 0.1.3 - 2018-09-10
 ### Added
 - Add ability to parse empty tuples
@@ -24,6 +28,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 - Initial functionality and tests
 
 [Unreleased]: https://github.com/asummers/erlex/compare/v0.1.3...HEAD
+[0.1.3...0.1.4]: https://github.com/asummers/erlex/compare/v0.1.3...0.1.4
 [0.1.2...0.1.3]: https://github.com/asummers/erlex/compare/v0.1.2...0.1.3
 [0.1.1...0.1.2]: https://github.com/asummers/erlex/compare/v0.1.1...0.1.2
 [0.1.0...0.1.1]: https://github.com/asummers/erlex/compare/v0.1.0...0.1.1
