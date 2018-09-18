@@ -127,7 +127,7 @@ defmodule Erlex do
       joiner = "Contract head:\n"
 
       pretty =
-        Enum.map_join([head | tail], "\n" <> joiner, fn contract ->
+        Enum.map_join([head | tail], "\n\n" <> joiner, fn contract ->
           contract
           |> to_charlist()
           |> do_pretty_print_contract()
@@ -259,9 +259,6 @@ defmodule Erlex do
   end
 
   defp do_pretty_print({:contract, {:args, args}, {:return, return}, {:whens, whens}}) do
-    [{:named_type, {:atom, ['w', 'h', 'e', 'n' | rest_name]}, type_list} | rest_types] = whens
-    whens = [{:named_type, {:atom, rest_name}, type_list} | rest_types]
-
     printed_whens =
       Enum.map_join(whens, ", ", fn {_, name, type} ->
         do_pretty_print({:named_type_with_appended_colon, name, type})

@@ -6,6 +6,7 @@ NUMBERED = _@[0-9]+::
 REST = \.\.\.
 RANGE = \.\.
 ATOM = \'[^']+\'
+WHEN = \swhen\s
 
 Rules.
 
@@ -13,6 +14,7 @@ Rules.
 {NUMBERED} : skip_token.
 
 {REST} : {token, {'...', TokenLine}}.
+{WHEN}  : {token, {'when', TokenLine}}.
 fun\( : {token, {'fun(',  TokenLine}}.
 \* : {token, {'*',  TokenLine}}.
 \[ : {token, {'[',  TokenLine}}.

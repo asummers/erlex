@@ -335,7 +335,7 @@ defmodule Erlex.Test.PretyPrintTest do
       )
 
     expected_output =
-      "Contract head:\n(any(), nil) :: nil\nContract head:\n(Ecto.Queryable.t(), String.t()) :: String.t()"
+      "Contract head:\n(any(), nil) :: nil\n\nContract head:\n(Ecto.Queryable.t(), String.t()) :: String.t()"
 
     assert pretty_printed == expected_output
   end
@@ -495,6 +495,17 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "whens in contracts pretty prints appropriately" do
+    input = ~S"""
+    (one,any(),'Elixir.Keyword':t()) -> 'ok' when one :: key()
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(:one, any(), Keyword.t()) :: :ok when one: key()"
+    assert pretty_printed == expected_output
+  end
+
   test "timeout transformation layer pretty prints appropriately" do
     input = ~S"""
     'infinity' | non_neg_integer()
@@ -536,7 +547,7 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print_contract(input)
 
     expected_output =
-      "Contract head:\n(nil, Dnsimple.Events.HostCreateRequested.t()) ::\n  {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}\nContract head:\n(\n  {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()},\n  Dnsimple.Events.HostCreateSucceeded.t()\n) :: {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}"
+      "Contract head:\n(nil, Dnsimple.Events.HostCreateRequested.t()) ::\n  {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}\n\nContract head:\n(\n  {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()},\n  Dnsimple.Events.HostCreateSucceeded.t()\n) :: {:ok, {Dnsimple.Models.Host.t(), Dnsimple.Models.Order.t()}}"
 
     assert pretty_printed == expected_output
   end
