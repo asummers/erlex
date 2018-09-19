@@ -10,7 +10,7 @@ script:
   - MIX_ENV=prod mix do compile --warnings-as-errors, archive.build, archive.install --force
   - MIX_ENV=prod mix dialyzer --halt-exit-status
   - OUTPUT_TESTS=true mix test
-  - mix coveralls.json
+  - mix coveralls.travis
   - bash <(curl -s https://codecov.io/bash)
 branches:
   except:
