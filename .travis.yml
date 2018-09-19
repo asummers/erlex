@@ -9,7 +9,6 @@ script:
   - mix credo list --format=oneline --strict
   - MIX_ENV=prod mix do compile --warnings-as-errors --force
   - mix dialyzer --halt-exit-status
-  - OUTPUT_TESTS=true mix test
   - MIX_ENV=test mix coveralls.travis
   - bash <(curl -s https://codecov.io/bash)
 cache:
