@@ -10,7 +10,6 @@ script:
   - MIX_ENV=prod mix do compile --warnings-as-errors --force
   - mix dialyzer --halt-exit-status
   - MIX_ENV=test mix coveralls.travis
-  - bash <(curl -s https://codecov.io/bash)
 cache:
   directories:
     - _build
@@ -18,3 +17,5 @@ cache:
 branches:
   except:
     - /^[0-9]\.[0-9]/
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
