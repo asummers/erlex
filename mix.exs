@@ -14,7 +14,6 @@ defmodule Erlex.MixProject do
       test_coverage: [tool: ExCoveralls],
       dialyzer: [
         plt_core_path: ".",
-        plt_add_deps: :transitive,
         plt_add_apps: [:mix, :erts, :kernel, :stdlib],
         flags: ["-Wunmatched_returns", "-Werror_handling", "-Wrace_conditions", "-Wno_opaque"],
         ignore_warnings: "dialyzer.ignore_warnings.exs"
