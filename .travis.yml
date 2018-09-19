@@ -1,0 +1,14 @@
+language: elixir
+elixir:
+  - 1.6.3
+otp_release:
+  - 19.2
+  - 20.3
+script:
+  - mix format --check-formattexxd
+  - mix credo list --format=oneline --strict
+  - MIX_ENV=prod mix do compile --warnings-as-errors, archive.build, archive.install --force
+  - MIX_ENV=prod mix dialyzer --halt-exit-status
+  - OUTPUT_TESTS=true mix test
+  - mix coveralls.json
+  - bash <(curl -s https://codecov.io/bash)
