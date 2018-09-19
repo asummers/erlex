@@ -12,6 +12,13 @@ defmodule Erlex.MixProject do
       package: package(),
       docs: docs(),
       test_coverage: [tool: ExCoveralls],
+      dialyzer: [
+        plt_core_path: ".",
+        plt_add_deps: :transitive,
+        plt_add_apps: [:mix, :erts, :kernel, :stdlib],
+        flags: ["-Wunmatched_returns", "-Werror_handling", "-Wrace_conditions", "-Wno_opaque"],
+        ignore_warnings: "dialyzer.ignore_warnings.exs"
+      ],
       preferred_cli_env: [
         coveralls: :test,
         "coveralls.detail": :test,
