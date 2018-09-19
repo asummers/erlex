@@ -31,8 +31,8 @@ defmodule Erlex.MixProject do
     [
       {:credo, "~> 0.9", only: [:dev, :test]},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.8", only: :test},
-      {:junit_formatter, "~> 2.2", only: :test}
+      {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.8", only: :test}
     ]
   end
 
