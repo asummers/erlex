@@ -5,7 +5,7 @@ otp_release:
   - 19.2
   - 20.3
 script:
-  - mix format --check-formattexxd
+  - mix format --check-formatted
   - mix credo list --format=oneline --strict
   - MIX_ENV=prod mix do compile --warnings-as-errors, archive.build, archive.install --force
   - MIX_ENV=prod mix dialyzer --halt-exit-status
