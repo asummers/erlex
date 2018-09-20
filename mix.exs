@@ -35,7 +35,7 @@ defmodule Erlex.MixProject do
 
   defp deps do
     [
-      {:credo, "~> 0.9", only: [:dev, :test]},
+      {:credo, "~> 0.9", only: [:dev, :test], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
       {:excoveralls, "~> 0.8", only: :test}
