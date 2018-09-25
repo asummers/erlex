@@ -551,4 +551,15 @@ defmodule Erlex.Test.PretyPrintTest do
 
     assert pretty_printed == expected_output
   end
+
+  test "numbered named types are pretty printed appropriately" do
+    input = ~S"""
+    __@1::<<_:1>>
+    """
+
+    pretty_printed = Erlex.pretty_print_args(input)
+
+    expected_output = "_ :: <<_::1>>"
+    assert pretty_printed == expected_output
+  end
 end
