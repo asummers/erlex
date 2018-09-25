@@ -2,7 +2,7 @@ Definitions.
 
 WHITESPACE=[\s\t\r\n]+
 INT = -?[0-9]+
-NUMBERED = _@[0-9]+::
+NUMBERED = _@[0-9]+
 REST = \.\.\.
 RANGE = \.\.
 ATOM = \'[^']+\'
