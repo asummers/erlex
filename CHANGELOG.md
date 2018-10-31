@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## 0.1.4 - 2018-09-17
 ### Added
+- Add ability to pretty print numbered named types
+
+## 0.1.4 - 2018-09-17
+### Added
 - Add ability to parse whens in specs.
 
 ## 0.1.3 - 2018-09-10
@@ -27,8 +31,9 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 - Changelog, CI, docs
 - Initial functionality and tests
 
-[Unreleased]: https://github.com/asummers/erlex/compare/v0.1.3...HEAD
-[0.1.3...0.1.4]: https://github.com/asummers/erlex/compare/v0.1.3...0.1.4
-[0.1.2...0.1.3]: https://github.com/asummers/erlex/compare/v0.1.2...0.1.3
-[0.1.1...0.1.2]: https://github.com/asummers/erlex/compare/v0.1.1...0.1.2
-[0.1.0...0.1.1]: https://github.com/asummers/erlex/compare/v0.1.0...0.1.1
+[Unreleased]: https://github.com/asummers/erlex/compare/v0.1.5...HEAD
+[0.1.4...0.1.5]: https://github.com/asummers/erlex/compare/v0.1.4...v0.1.5
+[0.1.3...0.1.4]: https://github.com/asummers/erlex/compare/v0.1.3...v0.1.4
+[0.1.2...0.1.3]: https://github.com/asummers/erlex/compare/v0.1.2...v0.1.3
+[0.1.1...0.1.2]: https://github.com/asummers/erlex/compare/v0.1.1...v0.1.2
+[0.1.0...0.1.1]: https://github.com/asummers/erlex/compare/v0.1.0...v0.1.1
