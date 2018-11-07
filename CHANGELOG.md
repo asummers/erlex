@@ -5,7 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
-## 0.1.4 - 2018-09-17
+## 0.1.6 - 2018-11-06
+### Added
+- Add ability to pretty print exception struct as Exception.t().
+
+## 0.1.5 - 2018-09-17
 ### Added
 - Add ability to pretty print numbered named types
 
@@ -31,7 +35,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 - Changelog, CI, docs
 - Initial functionality and tests
 
-[Unreleased]: https://github.com/asummers/erlex/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/asummers/erlex/compare/v0.1.6...HEAD
+[0.1.5...0.1.6]: https://github.com/asummers/erlex/compare/v0.1.5...v0.1.6
 [0.1.4...0.1.5]: https://github.com/asummers/erlex/compare/v0.1.4...v0.1.5
 [0.1.3...0.1.4]: https://github.com/asummers/erlex/compare/v0.1.3...v0.1.4
 [0.1.2...0.1.3]: https://github.com/asummers/erlex/compare/v0.1.2...v0.1.3
