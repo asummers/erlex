@@ -326,6 +326,17 @@ defmodule Erlex do
     "struct()"
   end
 
+  defp do_pretty_print(
+         {:map,
+          [
+            {:map_entry, {:atom, '\'__exception__\''}, {:atom, '\'true\''}},
+            {:map_entry, {:atom, '\'__struct__\''}, {:atom, [:_]}},
+            {:map_entry, {:atom, [:_]}, {:atom, [:_]}}
+          ]}
+       ) do
+    "Exception.t()"
+  end
+
   defp do_pretty_print({:map, map_keys}) do
     %{struct_name: struct_name, entries: entries} = struct_parts(map_keys)
 
