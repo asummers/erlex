@@ -563,7 +563,7 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
-  test "Exceptions are pretty printed appropriately" do
+  test "exceptions are pretty printed appropriately" do
     input = ~S"""
     (__@5::#{'__exception__':='true', '__struct__':=_, _=>_})
     """
@@ -571,6 +571,17 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print_contract(input)
 
     expected_output = "(_ :: Exception.t())"
+    assert pretty_printed == expected_output
+  end
+
+  test "scientific notation numbers are printed appropriately" do
+    input = ~S"""
+    (1.0e-3)
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(1.0e-3)"
     assert pretty_printed == expected_output
   end
 end
