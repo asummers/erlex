@@ -585,7 +585,7 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
-  test "scientific notation numbers are printed appropriately" do
+  test "scientific notation numbers are pretty printed appropriately" do
     input = ~S"""
     (1.0e-3)
     """
@@ -593,6 +593,17 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print_contract(input)
 
     expected_output = "(1.0e-3)"
+    assert pretty_printed == expected_output
+  end
+
+  test "ellipsed inner functions are pretty printed appropriately" do
+    input = ~S"""
+    (graph::'Elixir.Scenic.Graph':t(),id::any(),action::fun(...) -> 'Elixir.Scenic.Primitive':t()) -> 'Elixir.Scenic.Graph':t()
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(graph :: Scenic.Graph.t(), id :: any(), action :: (... -> Scenic.Primitive.t())) ::\n  Scenic.Graph.t()"
     assert pretty_printed == expected_output
   end
 end

@@ -90,6 +90,7 @@ map_entry -> value ':=' value : {map_entry, '$1', '$3'}.
 map_entry -> value '=>' value : {map_entry, '$1', '$3'}.
 
 function -> 'fun(' ')' : {any_function}.
+function -> 'fun(' '...' ')' : {inner_any_function}.
 function -> 'fun(' contract ')' : {function, '$2'}.
 
 binary_part -> '_' ':' value : {binary_part, {any}, '$3'}.
@@ -101,6 +102,7 @@ byte -> '#' '<' int '>' '(' int ',' int ',' atom ',' '[' atom ',' atom ']' ')' :
 
 contract -> list '->' value when value_items : {contract, {args, '$1'}, {return, '$3'}, {whens, '$5'}}.
 contract -> list '->' value : {contract, {args, '$1'}, {return, '$3'}}.
+contract -> function '->' value : {contract, {args, '$1'}, {return, '$3'}}.
 
 integer -> int : {int, unwrap('$1')}.
 
