@@ -574,6 +574,17 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "multiple _ variables are pretty printed appropriately" do
+    input = ~S"""
+    (_@1::any(),_@2::any(),[])
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(_ :: any(), _ :: any(), [])"
+    assert pretty_printed == expected_output
+  end
+
   test "scientific notation numbers are printed appropriately" do
     input = ~S"""
     (1.0e-3)
