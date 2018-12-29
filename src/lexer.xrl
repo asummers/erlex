@@ -3,7 +3,6 @@ Definitions.
 WHITESPACE=[\s\t\r\n]+
 SCIENTIFIC_NOTATION = -?[0-9]+\.[0-9]+e-?[0-9]+
 INT = -?[0-9]+
-NUMBERED = _@[0-9]+
 REST = \.\.\.
 RANGE = \.\.
 ATOM = \'[^']+\'
@@ -12,7 +11,6 @@ WHEN = \swhen\s
 Rules.
 
 {WHITESPACE} : skip_token.
-{NUMBERED} : skip_token.
 
 {REST} : {token, {'...', TokenLine}}.
 {WHEN}  : {token, {'when', TokenLine}}.

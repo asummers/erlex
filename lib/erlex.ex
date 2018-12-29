@@ -530,6 +530,10 @@ defmodule Erlex do
     Map.put(struct_parts, :entries, [entry | entries])
   end
 
+  defp deatomize([:_, :_, '@', {:int, _}]) do
+    "_"
+  end
+
   defp deatomize(chars) when is_list(chars) do
     Enum.map(chars, fn char ->
       char
