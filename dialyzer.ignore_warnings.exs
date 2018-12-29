@@ -1,8 +1,8 @@
 [
-  {"lib/erlex.ex", :no_return, 87},
-  {"lib/erlex.ex", :no_return, 130},
-  {"lib/erlex.ex", :no_return, 140},
-  {"lib/erlex.ex", :no_return, 159},
-  {"lib/erlex.ex", :no_return, 180},
-  {"lib/erlex.ex", :no_return, 547},
+  {"lib/erlex.ex", :no_return, 63},
+  {"lib/erlex.ex", :no_return, 96},
+  {"lib/erlex.ex", :no_return, 139},
+  {"lib/erlex.ex", :no_return, 149},
+  {"lib/erlex.ex", :no_return, 168},
+  {"lib/erlex.ex", :no_return, 189},
 ]

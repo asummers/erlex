@@ -60,6 +60,15 @@ defmodule Erlex do
     end
   end
 
+  defp format(code) do
+    try do
+      Code.format_string!(code)
+    rescue
+      _ ->
+        throw({:error, :formatting, code})
+    end
+  end
+
   @spec pretty_print_infix(infix :: String.t()) :: String.t()
   def pretty_print_infix('=:='), do: "==="
   def pretty_print_infix('=/='), do: "!=="
@@ -547,13 +556,4 @@ defmodule Erlex do
   end
 
   defp deatomize_char(char), do: char
-
-  defp format(code) do
-    try do
-      Code.format_string!(code)
-    rescue
-      _ ->
-        throw({:error, :formatting, code})
-    end
-  end
 end
