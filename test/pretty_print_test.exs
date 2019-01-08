@@ -603,7 +603,9 @@ defmodule Erlex.Test.PretyPrintTest do
 
     pretty_printed = Erlex.pretty_print_contract(input)
 
-    expected_output = "(graph :: Scenic.Graph.t(), id :: any(), action :: (... -> Scenic.Primitive.t())) ::\n  Scenic.Graph.t()"
+    expected_output =
+      "(graph :: Scenic.Graph.t(), id :: any(), action :: (... -> Scenic.Primitive.t())) ::\n  Scenic.Graph.t()"
+
     assert pretty_printed == expected_output
   end
 end
