@@ -208,6 +208,10 @@ defmodule Erlex do
     "_"
   end
 
+  defp do_pretty_print({:inner_any_function}) do
+    "(...)"
+  end
+
   defp do_pretty_print({:any_function}) do
     "(... -> any)"
   end
@@ -274,6 +278,10 @@ defmodule Erlex do
       end)
 
     "#{do_pretty_print(args)} :: #{do_pretty_print(return)} when #{printed_whens}"
+  end
+
+  defp do_pretty_print({:contract, {:args, {:inner_any_function}}, {:return, return}}) do
+    "((...) -> #{do_pretty_print(return)})"
   end
 
   defp do_pretty_print({:contract, {:args, args}, {:return, return}}) do
