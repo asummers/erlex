@@ -9,22 +9,6 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
-  test "true is parsed appropriately" do
-    input = "true"
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "true"
-    assert pretty_printed == expected_output
-  end
-
-  test "false is parsed appropriately" do
-    input = "false"
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "false"
-    assert pretty_printed == expected_output
-  end
-
   test "integers are pretty printed appropriately" do
     input = "1"
     pretty_printed = Erlex.pretty_print(input)
@@ -92,24 +76,6 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
-  test "maps are pretty printed appropriately" do
-    input = ~S"#{'halted':='true'}"
-
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "%{:halted => true}"
-    assert pretty_printed == expected_output
-  end
-
-  test "structs are pretty printed appropriately" do
-    input = ~S"#{'halted':='true', '__struct__':='Elixir.Plug.Conn'}"
-
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "%Plug.Conn{:halted => true}"
-    assert pretty_printed == expected_output
-  end
-
   test "structs with any arrows are pretty printed appropriately" do
     input = ~S"#{'halted':='true', '__struct__':='Elixir.Plug.Conn', _ => _}"
 
@@ -135,22 +101,6 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
-  test "ranges are pretty printed appropriately" do
-    input = "1..5"
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "1..5"
-    assert pretty_printed == expected_output
-  end
-
-  test "zero arg functions in contract are pretty printed appropriately" do
-    input = "() -> atom()"
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "() :: atom()"
-    assert pretty_printed == expected_output
-  end
-
   test "erlang function calls are pretty printed appropriately" do
     input =
       "([supervisor:child_spec() | {module(),term()} | module()],[init_option()]) -> {'ok',tuple()}"
@@ -160,14 +110,6 @@ defmodule Erlex.Test.PretyPrintTest do
     expected_output =
       "([:supervisor.child_spec() | {module(), term()} | module()], [init_option()]) :: {:ok, tuple()}"
 
-    assert pretty_printed == expected_output
-  end
-
-  test "binary is pretty printed appropriately" do
-    input = "<<_:64,_:_*8>>"
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "<<_ :: 64, _ :: size(8)>>"
     assert pretty_printed == expected_output
   end
 
@@ -242,39 +184,6 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print(input)
 
     expected_output = "()"
-    assert pretty_printed == expected_output
-  end
-
-  test "empty square lists are pretty printed appropriately" do
-    input = ~S"""
-    []
-    """
-
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "[]"
-    assert pretty_printed == expected_output
-  end
-
-  test "empty maps are pretty printed appropriately" do
-    input = ~S"""
-    #{}
-    """
-
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "%{}"
-    assert pretty_printed == expected_output
-  end
-
-  test "empty tuples are pretty printed appropriately" do
-    input = ~S"""
-    {}
-    """
-
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output = "{}"
     assert pretty_printed == expected_output
   end
 
@@ -409,19 +318,6 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print(input)
 
     expected_output = "(res :: {:error, _})"
-    assert pretty_printed == expected_output
-  end
-
-  test "empty binaries are pretty printed appropriately" do
-    input = ~S"""
-    ([#{'__struct__':='Elixir.MyApp.Actions.Update', 'function':='update', 'old_style?':='true', 'params':=[{_,_},...], 'route':=<<>>, 'rules':='update'},...])
-    """
-
-    pretty_printed = Erlex.pretty_print(input)
-
-    expected_output =
-      "([%MyApp.Actions.Update{:function => :update, :old_style? => true, :params => [{_, _}, ...], :route => <<>>, :rules => :update}, ...])"
-
     assert pretty_printed == expected_output
   end
 
