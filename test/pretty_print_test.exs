@@ -391,6 +391,17 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "struct with atom key transformation layer pretty prints appropriately" do
+    input = ~S"""
+    #{'__struct__':=atom(), atom()=>_}
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output = "struct()"
+    assert pretty_printed == expected_output
+  end
+
   test "whens in contracts pretty prints appropriately" do
     input = ~S"""
     (one,any(),'Elixir.Keyword':t()) -> 'ok' when one :: key()
