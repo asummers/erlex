@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## 0.2.0 - 2018-02-01
+### Added
+- Handle scientific notation.
+- Handle numbered differently, fixes bug.
+- Handle ... contracts.
+- Add another struct pretty print layer.
+
 ## 0.1.6 - 2018-11-06
 ### Added
 - Add ability to pretty print exception struct as Exception.t().
@@ -35,7 +42,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 - Changelog, CI, docs
 - Initial functionality and tests
 
-[Unreleased]: https://github.com/asummers/erlex/compare/v0.1.6...HEAD
+[Unreleased]: https://github.com/asummers/erlex/compare/v0.2.0...HEAD
+[0.1.6...0.2.0]: https://github.com/asummers/erlex/compare/v0.1.6...v0.2.0
 [0.1.5...0.1.6]: https://github.com/asummers/erlex/compare/v0.1.5...v0.1.6
 [0.1.4...0.1.5]: https://github.com/asummers/erlex/compare/v0.1.4...v0.1.5
 [0.1.3...0.1.4]: https://github.com/asummers/erlex/compare/v0.1.3...v0.1.4
