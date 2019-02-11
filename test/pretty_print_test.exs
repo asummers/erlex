@@ -382,6 +382,17 @@ defmodule Erlex.Test.PretyPrintTest do
 
   test "struct transformation layer pretty prints appropriately" do
     input = ~S"""
+    #{'__struct__':=_, _=>_}
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output = "struct()"
+    assert pretty_printed == expected_output
+  end
+
+  test "struct atom transformation layer pretty prints appropriately" do
+    input = ~S"""
     #{'__struct__':=atom(), _=>_}
     """
 
