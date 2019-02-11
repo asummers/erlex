@@ -335,6 +335,16 @@ defmodule Erlex do
   defp do_pretty_print(
          {:map,
           [
+            {:map_entry, {:atom, '\'__struct__\''}, {:atom, [:_]}},
+            {:map_entry, {:atom, [:_]}, {:atom, [:_]}}
+          ]}
+       ) do
+    "struct()"
+  end
+
+  defp do_pretty_print(
+         {:map,
+          [
             {:map_entry, {:atom, '\'__struct__\''},
              {:type_list, ['a', 't', 'o', 'm'], {:list, :paren, []}}},
             {:map_entry, {:type_list, ['a', 't', 'o', 'm'], {:list, :paren, []}}, {:atom, [:_]}}
