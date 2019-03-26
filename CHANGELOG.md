@@ -5,11 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
-## 0.2.0 - 2018-02-11
+## 0.2.1 - 2019-02-11
 ### Added
 - Handle another struct pretty print.
 
-## 0.2.0 - 2018-02-01
+## 0.2.0 - 2019-02-01
 ### Added
 - Handle scientific notation.
 - Handle numbered differently, fixes bug.
