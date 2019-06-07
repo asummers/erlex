@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## 0.2.2 - 2019-06-07
+### Added
+- Handle pretty printing binary strings better.
+
 ## 0.2.1 - 2019-02-11
 ### Added
 - Handle another struct pretty print.
