@@ -26,7 +26,7 @@ of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:erlex, "~> 0.1"},
+    {:erlex, "~> 0.2"},
   ]
 end
 ```
