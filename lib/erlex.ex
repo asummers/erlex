@@ -507,7 +507,7 @@ defmodule Erlex do
   end
 
   defp atomize("Elixir." <> module_name) do
-    "#{String.trim(module_name, "'")}"
+    String.trim(module_name, "'")
   end
 
   defp atomize(atom) when is_list(atom) do
