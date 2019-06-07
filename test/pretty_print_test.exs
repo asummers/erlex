@@ -526,4 +526,14 @@ defmodule Erlex.Test.PretyPrintTest do
 
     assert pretty_printed == expected_output
   end
+
+  test "binaries are pretty printed appropriately" do
+    input = ~S"""
+    (<<114,111,108,101,115,95,117,115,101,114,115>>)
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    assert pretty_printed == "(<<114, 111, 108, 101, 115, 95, 117, 115, 101, 114, 115>>)"
+  end
 end
