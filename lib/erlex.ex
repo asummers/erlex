@@ -510,6 +510,10 @@ defmodule Erlex do
     String.trim(module_name, "'")
   end
 
+  defp atomize([char]) do
+    to_string(char)
+  end
+
   defp atomize(atom) when is_list(atom) do
     atom_string =
       atom
