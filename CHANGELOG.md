@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## 0.2.3 - 2019-07-16
+### Added
+- Handle single letter atoms in constracts.
+
 ## 0.2.2 - 2019-06-07
 ### Added
 - Handle pretty printing binary strings better.
