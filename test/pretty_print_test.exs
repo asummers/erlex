@@ -424,6 +424,17 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "whens with single letter type variables prints appropriately" do
+    input = ~S"""
+    () -> a when a :: atom()
+    """
+
+    pretty_printed = assert Erlex.pretty_print_contract(input)
+
+    expected_output = "() :: a when a: atom()"
+    assert pretty_printed == expected_output
+  end
+
   test "timeout transformation layer pretty prints appropriately" do
     input = ~S"""
     'infinity' | non_neg_integer()
