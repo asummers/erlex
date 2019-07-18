@@ -272,12 +272,12 @@ defmodule Erlex do
   end
 
   defp do_pretty_print({:contract, {:args, args}, {:return, return}, {:whens, whens}}) do
-    printed_whens =
-      Enum.map_join(whens, ", ", fn {_, name, type} ->
-        do_pretty_print({:named_type_with_appended_colon, name, type})
-      end)
+    {printed_whens, when_names} = collect_and_print_whens(whens)
 
-    "#{do_pretty_print(args)} :: #{do_pretty_print(return)} when #{printed_whens}"
+    args = {:when_names, when_names, args}
+    return = {:when_names, when_names, return}
+
+    "(#{do_pretty_print(args)}) :: #{do_pretty_print(return)} when #{printed_whens}"
   end
 
   defp do_pretty_print({:contract, {:args, {:inner_any_function}}, {:return, return}}) do
@@ -504,6 +504,40 @@ defmodule Erlex do
 
   defp do_pretty_print({:type_list, type, types}) do
     "#{deatomize(type)}#{do_pretty_print(types)}"
+  end
+
+  defp do_pretty_print({:when_names, when_names, {:list, :paren, items}}) do
+    items = Enum.map(items, &trim_when_names(do_pretty_print(&1), when_names))
+    Enum.join(items, ", ")
+  end
+
+  defp do_pretty_print({:when_names, when_names, item}) do
+    trim_when_names(do_pretty_print(item), when_names)
+  end
+
+  defp trim_when_names(item, when_names) do
+    trimmed = String.trim_leading(item, ":")
+    if trimmed in when_names do
+      trimmed
+    else
+      item
+    end
+  end
+
+  defp collect_and_print_whens(whens) do
+    {pretty_names, when_names} =
+      Enum.reduce(whens, {[], []}, fn {_, when_name, type}, {prettys, whens} ->
+        pretty_name = do_pretty_print({:named_type_with_appended_colon, when_name, type})
+        {[pretty_name | prettys], [when_name | whens]}
+      end)
+
+    when_names =
+      when_names
+      |> Enum.map(fn {_, v} -> to_string(v) end)
+
+    printed = pretty_names |> Enum.reverse |> Enum.join(", ")
+
+    {printed, when_names}
   end
 
   defp atomize("Elixir." <> module_name) do

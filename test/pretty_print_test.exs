@@ -342,7 +342,7 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print(input)
 
     expected_output =
-      "(:Atom, :Encoding) :: binary() when Atom: atom(), Encoding: :latin1 | :utf8"
+      "(Atom, Encoding) :: binary() when Atom: atom(), Encoding: :latin1 | :utf8"
 
     assert pretty_printed == expected_output
   end
@@ -420,7 +420,7 @@ defmodule Erlex.Test.PretyPrintTest do
 
     pretty_printed = Erlex.pretty_print_contract(input)
 
-    expected_output = "(:one, any(), Keyword.t()) :: :ok when one: key()"
+    expected_output = "(one, any(), Keyword.t()) :: :ok when one: key()"
     assert pretty_printed == expected_output
   end
 
@@ -432,6 +432,17 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = assert Erlex.pretty_print_contract(input)
 
     expected_output = "() :: a when a: atom()"
+    assert pretty_printed == expected_output
+  end
+
+  test "type variable and atom argument types pretty print appropriately" do
+    input = ~S"""
+    (km, s, 'fnord') -> km when km :: term(), s :: atom()
+    """
+
+    pretty_printed = assert Erlex.pretty_print_contract(input)
+
+    expected_output = "(km, s, :fnord) :: km when km: term(), s: atom()"
     assert pretty_printed == expected_output
   end
 
