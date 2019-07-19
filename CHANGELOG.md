@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## 0.2.4 - 2019-07-18
+### Added
+- Handle names in whens more properly.
+
 ## 0.2.3 - 2019-07-16
 ### Added
 - Handle single letter atoms in constracts.
