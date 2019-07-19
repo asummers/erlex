@@ -516,6 +516,7 @@ defmodule Erlex do
 
   defp trim_when_names(item, when_names) do
     trimmed = String.trim_leading(item, ":")
+
     if trimmed in when_names do
       trimmed
     else
@@ -534,7 +535,7 @@ defmodule Erlex do
       when_names
       |> Enum.map(fn {_, v} -> to_string(v) end)
 
-    printed_whens = pretty_names |> Enum.reverse |> Enum.join(", ")
+    printed_whens = pretty_names |> Enum.reverse() |> Enum.join(", ")
 
     {printed_whens, when_names}
   end
