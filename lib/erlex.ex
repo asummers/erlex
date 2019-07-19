@@ -507,8 +507,7 @@ defmodule Erlex do
   end
 
   defp do_pretty_print({:when_names, when_names, {:list, :paren, items}}) do
-    items = Enum.map(items, &trim_when_names(do_pretty_print(&1), when_names))
-    Enum.join(items, ", ")
+    Enum.map_join(items, ", ", &trim_when_names(do_pretty_print(&1), when_names))
   end
 
   defp do_pretty_print({:when_names, when_names, item}) do
@@ -535,9 +534,9 @@ defmodule Erlex do
       when_names
       |> Enum.map(fn {_, v} -> to_string(v) end)
 
-    printed = pretty_names |> Enum.reverse |> Enum.join(", ")
+    printed_whens = pretty_names |> Enum.reverse |> Enum.join(", ")
 
-    {printed, when_names}
+    {printed_whens, when_names}
   end
 
   defp atomize("Elixir." <> module_name) do
