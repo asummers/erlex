@@ -341,7 +341,7 @@ defmodule Erlex.Test.PretyPrintTest do
 
     pretty_printed = Erlex.pretty_print(input)
 
-    expected_output = "(Atom, Encoding) :: binary() when Atom: atom(), Encoding: :latin1 | :utf8"
+    expected_output = "(atom, encoding) :: binary() when atom: atom(), encoding: :latin1 | :utf8"
 
     assert pretty_printed == expected_output
   end
