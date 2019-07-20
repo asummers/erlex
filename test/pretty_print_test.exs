@@ -423,6 +423,28 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "underscore in when type variable prints appropriately" do
+    input = ~S"""
+    (This_one, any()) -> 'ok' when This_one :: key()
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(this_one, any()) :: :ok when this_one: key()"
+    assert pretty_printed == expected_output
+  end
+
+  test "mixed case in when type variable prints appropriately" do
+    input = ~S"""
+    (ThisOne, any()) -> 'ok' when ThisOne :: key()
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(thisOne, any()) :: :ok when thisOne: key()"
+    assert pretty_printed == expected_output
+  end
+
   test "whens with single letter type variables prints appropriately" do
     input = ~S"""
     () -> a when a :: atom()
