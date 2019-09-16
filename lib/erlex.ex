@@ -507,18 +507,18 @@ defmodule Erlex do
   end
 
   defp do_pretty_print({:when_names, when_names, {:list, :paren, items}}) do
-    Enum.map_join(items, ", ", &trim_when_names(do_pretty_print(&1), when_names))
+    Enum.map_join(items, ", ", &format_when_names(do_pretty_print(&1), when_names))
   end
 
   defp do_pretty_print({:when_names, when_names, item}) do
-    trim_when_names(do_pretty_print(item), when_names)
+    format_when_names(do_pretty_print(item), when_names)
   end
 
-  defp trim_when_names(item, when_names) do
+  defp format_when_names(item, when_names) do
     trimmed = String.trim_leading(item, ":")
 
     if trimmed in when_names do
-      trimmed
+      downcase_first(trimmed)
     else
       item
     end
@@ -527,17 +527,26 @@ defmodule Erlex do
   defp collect_and_print_whens(whens) do
     {pretty_names, when_names} =
       Enum.reduce(whens, {[], []}, fn {_, when_name, type}, {prettys, whens} ->
-        pretty_name = do_pretty_print({:named_type_with_appended_colon, when_name, type})
+        pretty_name =
+          {:named_type_with_appended_colon, when_name, type}
+          |> do_pretty_print()
+          |> downcase_first()
+
         {[pretty_name | prettys], [when_name | whens]}
       end)
 
     when_names =
       when_names
-      |> Enum.map(fn {_, v} -> to_string(v) end)
+      |> Enum.map(fn {_, v} -> v |> atomize() |> String.trim_leading(":") end)
 
     printed_whens = pretty_names |> Enum.reverse() |> Enum.join(", ")
 
     {printed_whens, when_names}
+  end
+
+  defp downcase_first(string) do
+    {first, rest} = String.split_at(string, 1)
+    String.downcase(first) <> rest
   end
 
   defp atomize("Elixir." <> module_name) do

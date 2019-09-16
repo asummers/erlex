@@ -341,7 +341,7 @@ defmodule Erlex.Test.PretyPrintTest do
 
     pretty_printed = Erlex.pretty_print(input)
 
-    expected_output = "(Atom, Encoding) :: binary() when Atom: atom(), Encoding: :latin1 | :utf8"
+    expected_output = "(atom, encoding) :: binary() when atom: atom(), encoding: :latin1 | :utf8"
 
     assert pretty_printed == expected_output
   end
@@ -420,6 +420,28 @@ defmodule Erlex.Test.PretyPrintTest do
     pretty_printed = Erlex.pretty_print_contract(input)
 
     expected_output = "(one, any(), Keyword.t()) :: :ok when one: key()"
+    assert pretty_printed == expected_output
+  end
+
+  test "underscore in when type variable prints appropriately" do
+    input = ~S"""
+    (This_one, any()) -> 'ok' when This_one :: key()
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(this_one, any()) :: :ok when this_one: key()"
+    assert pretty_printed == expected_output
+  end
+
+  test "mixed case in when type variable prints appropriately" do
+    input = ~S"""
+    (ThisOne, any()) -> 'ok' when ThisOne :: key()
+    """
+
+    pretty_printed = Erlex.pretty_print_contract(input)
+
+    expected_output = "(thisOne, any()) :: :ok when thisOne: key()"
     assert pretty_printed == expected_output
   end
 
