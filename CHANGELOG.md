@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## 0.2.5 - 2019-09-19
+### Added
+- Handle Erlang variables better with casing in guards.
+
 ## 0.2.4 - 2019-07-18
 ### Added
 - Handle names in whens more properly.
