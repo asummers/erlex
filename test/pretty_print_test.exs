@@ -579,4 +579,12 @@ defmodule Erlex.Test.PretyPrintTest do
 
     assert pretty_printed == "(<<114, 111, 108, 101, 115, 95, 117, 115, 101, 114, 115>>)"
   end
+
+  test "binary as first value in pattern" do
+    input = "<<<_:8,_:_*1>>,'false'>"
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    assert pretty_printed == "<<_ :: 8, _ :: size(1)>>, false"
+  end
 end
