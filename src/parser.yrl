@@ -37,7 +37,6 @@ int
 '::'
 ':'
 '...'
-'<<' '>>'
 '<' '>'
 '*'
 'when'
@@ -67,9 +66,9 @@ value -> rest : '$1'.
 value -> tuple : '$1'.
 value -> type : '$1'.
 
-binary -> '<<' '>>' : {binary, []}.
-binary -> '<<' binary_items '>>' : {binary, '$2'}.
-binary -> '<<' value_items '>>' : {binary, '$2'}.
+binary -> '<' '<' '>' '>' : {binary, []}.
+binary -> '<' '<' binary_items '>' '>' : {binary, '$3'}.
+binary -> '<' '<' value_items '>' '>' : {binary, '$3'}.
 
 pattern -> '<' value_items '>' : {pattern, '$2'}.
 

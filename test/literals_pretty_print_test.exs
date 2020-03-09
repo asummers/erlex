@@ -123,4 +123,12 @@ defmodule Erlex.Test.LiteralsPretyPrintTest do
     expected_output = "<<_ :: 64, _ :: size(8)>>"
     assert pretty_printed == expected_output
   end
+
+  test "binary as first value in pattern" do
+    input = "<<<_:8,_:_*1>>,'false'>"
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    assert pretty_printed == "<<_ :: 8, _ :: size(1)>>, false"
+  end
 end
