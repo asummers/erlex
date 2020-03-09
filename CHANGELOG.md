@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## 0.2.6 - 2020-03-09
+### Added
+- Replace << parsing to fix nexted pattern matching binary bugs discovered from Phoenix 1.4.15.
+
 ## 0.2.5 - 2019-09-19
 ### Added
 - Handle Erlang variables better with casing in guards.
