@@ -131,4 +131,11 @@ defmodule Erlex.Test.LiteralsPretyPrintTest do
 
     assert pretty_printed == "<<_ :: 8, _ :: size(1)>>, false"
   end
+
+  test "keep underscore in pattern" do
+    input = "{'embed', __@3, __@4}"
+    pretty_printed = Erlex.pretty_print_type(input)
+
+    assert pretty_printed == "{:embed, _, _}"
+  end
 end
