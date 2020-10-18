@@ -22,11 +22,12 @@ jobs:
       uses: actions/cache@v2
       with:
         path: deps
-        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
-        restore-keys: ${{ runner.os }}-mix-
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('**/mix.lock') }}
     - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
       run: mix deps.get
     - name: Compile dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
       run: mix deps.compile
     - name: Check formatted
       run: mix format --check-formatted
