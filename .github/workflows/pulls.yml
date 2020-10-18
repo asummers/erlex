@@ -1,0 +1,35 @@
+name: Elixir CI
+
+on: push
+
+jobs:
+  build:
+
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Elixir
+      uses: actions/setup-elixir@v1
+      with:
+        elixir-version: '1.11.0' # Define the elixir version [required]
+        otp-version: '23.1' # Define the OTP version [required]
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Install dependencies
+      run: mix deps.get
+    - name: Compile dependencies
+      run: mix deps.compile
+    - name: Check formatted
+      run: mix format --check-formatted         
+    - name: Check unused dependencies
+      run: mix deps.unlock --check-unused
+    - name: Check unused dependencies
+      run: mix credo --strict --format oneline                  
+    - name: Run tests
+      run: mix test
