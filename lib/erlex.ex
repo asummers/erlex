@@ -372,20 +372,16 @@ defmodule Erlex do
   defp do_pretty_print({:map, map_keys}) do
     %{struct_name: struct_name, entries: entries} = struct_parts(map_keys)
 
-    if struct_name do
-      entries_to_print =
-        case entries do
-          [{:map_entry, {:atom, [:_]}, {:atom, [:_]}}] ->
-            []
+    entries_to_print =
+      case entries do
+        [{:map_entry, {:atom, [:_]}, {:atom, [:_]}}] ->
+          []
 
-          _ ->
-            entries
-        end
+        _ ->
+          entries
+      end
 
-      "%#{struct_name}{#{Enum.map_join(entries_to_print, ", ", &do_pretty_print/1)}}"
-    else
-      "%{#{Enum.map_join(entries, ", ", &do_pretty_print/1)}}"
-    end
+    "%#{struct_name}{#{Enum.map_join(entries_to_print, ", ", &do_pretty_print/1)}}"
   end
 
   defp do_pretty_print({:named_type_with_appended_colon, named_type, type})
@@ -582,7 +578,7 @@ defmodule Erlex do
 
   defp struct_parts(map_keys) do
     %{struct_name: struct_name, entries: entries} =
-      Enum.reduce(map_keys, %{struct_name: nil, entries: []}, &struct_part/2)
+      Enum.reduce(map_keys, %{struct_name: "", entries: []}, &struct_part/2)
 
     %{struct_name: struct_name, entries: Enum.reverse(entries)}
   end
