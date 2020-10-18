@@ -572,7 +572,7 @@ defmodule Erlex do
     end
   end
 
-  defp atomize(<<atom>>) when is_number(atom) do
+  defp atomize(<<atom>>) when is_number(atom) and atom != 95 do
     "#{atom}"
   end
 
