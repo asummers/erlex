@@ -401,6 +401,17 @@ defmodule Erlex.Test.PretyPrintTest do
     assert pretty_printed == expected_output
   end
 
+  test "struct atom filtering blanks prints appropriately" do
+    input = ~S"""
+    #{'__struct__':='Elixir.SomeStruct', _=>_}
+    """
+
+    pretty_printed = Erlex.pretty_print(input)
+
+    expected_output = "%SomeStruct{}"
+    assert pretty_printed == expected_output
+  end
+
   test "struct with atom key transformation layer pretty prints appropriately" do
     input = ~S"""
     #{'__struct__':=atom(), atom()=>_}
