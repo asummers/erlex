@@ -1,5 +1,5 @@
 [
-  parallel: false,
+  parallel: true,
   skipped: true,
 
   tools: [
