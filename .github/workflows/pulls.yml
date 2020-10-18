@@ -22,7 +22,9 @@ jobs:
       with:
         path: deps
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix
+        restore-keys: |
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('**/mix.lock') }}
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix
     - name: Install dependencies
       run: mix deps.get
     - name: Format
@@ -38,7 +40,9 @@ jobs:
       with:
         path: priv/plts
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt-${{ hashFiles('**/priv/plts/dialyzer.plt.hash') }}
-        restore-keys: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt
+        restore-keys: |
+          ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt-${{ hashFiles('**/priv/plts/dialyzer.plt.hash') }}
+          ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt
     - name: Dialyzer
       run: mix dialyzer --halt-exit-status
     - name: Tests
