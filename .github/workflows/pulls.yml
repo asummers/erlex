@@ -25,8 +25,6 @@ jobs:
         restore-keys: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix
     - name: Install dependencies
       run: mix deps.get
-    - name: Compile dependencies
-      run: mix deps.compile
     - name: Format
       run: mix format --check-formatted
     - name: Compile
