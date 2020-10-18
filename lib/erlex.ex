@@ -130,6 +130,10 @@ defmodule Erlex do
       |> to_string()
       |> String.split(";")
 
+
+
+
+
     if Enum.empty?(tail) do
       do_pretty_print_contract(head)
     else
