@@ -25,16 +25,6 @@ jobs:
         restore-keys: |
             ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('**/mix.lock') }}
             ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix
-    - name: Install dependencies
-      run: mix deps.get
-    - name: Format
-      run: mix format --check-formatted
-    - name: Compile
-      run: mix compile --warnings-as-errors
-    - name: Unused dependencies
-      run: mix deps.unlock --check-unused
-    - name: Lint
-      run: mix credo --strict --format oneline
     - name: Restore Dialyzer PLT cache
       uses: actions/cache@v2
       with:
@@ -43,7 +33,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt-${{ hashFiles('**/priv/plts/dialyzer.plt.hash') }}
           ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt
-    - name: Dialyzer
-      run: mix dialyzer --halt-exit-status
-    - name: Tests
-      run: mix test
+    - name: Install dependencies
+      run: mix deps.get
+    - name: mix check
+      run: mix check
