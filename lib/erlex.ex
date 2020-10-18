@@ -135,14 +135,7 @@ defmodule Erlex do
     else
       joiner = "Contract head:\n"
 
-      pretty =
-        Enum.map_join([head | tail], "\n\n" <> joiner, fn contract ->
-          contract
-          # |> to_charlist()
-          |> do_pretty_print_contract()
-        end)
-
-      joiner <> pretty
+      joiner <> Enum.map_join([head | tail], "\n\n" <> joiner, &do_pretty_print_contract/1)
     end
   end
 
@@ -370,18 +363,13 @@ defmodule Erlex do
   end
 
   defp do_pretty_print({:map, map_keys}) do
-    %{struct_name: struct_name, entries: entries} = struct_parts(map_keys)
+    case struct_parts(map_keys) do
+      %{name: name, entries: [{:map_entry, {:atom, [:_]}, {:atom, [:_]}}]} ->
+        "%#{name}{}"
 
-    entries_to_print =
-      case entries do
-        [{:map_entry, {:atom, [:_]}, {:atom, [:_]}}] ->
-          []
-
-        _ ->
-          entries
-      end
-
-    "%#{struct_name}{#{Enum.map_join(entries_to_print, ", ", &do_pretty_print/1)}}"
+      %{name: name, entries: entries} ->
+        "%#{name}{#{Enum.map_join(entries, ", ", &do_pretty_print/1)}}"
+    end
   end
 
   defp do_pretty_print({:named_type_with_appended_colon, named_type, type})
@@ -517,10 +505,16 @@ defmodule Erlex do
       end)
 
     when_names =
-      when_names
-      |> Enum.map(fn {_, v} -> v |> atomize() |> String.trim_leading(":") end)
+      Enum.map(when_names, fn {_, name} ->
+        name
+        |> atomize()
+        |> String.trim_leading(":")
+      end)
 
-    printed_whens = pretty_names |> Enum.reverse() |> Enum.join(", ")
+    printed_whens =
+      pretty_names
+      |> Enum.reverse()
+      |> Enum.join(", ")
 
     {printed_whens, when_names}
   end
@@ -553,8 +547,8 @@ defmodule Erlex do
     end
   end
 
-  defp atomize(<<atom>>) when is_number(atom) do
-    "#{atom}"
+  defp atomize(<<number>>) when is_number(number) do
+    to_string(number)
   end
 
   defp atomize(atom) do
@@ -563,7 +557,10 @@ defmodule Erlex do
     if String.starts_with?(atom, "_") do
       atom
     else
-      inspect(:"#{String.trim(atom, "'")}")
+      atom
+      |> String.trim("'")
+      |> String.to_atom()
+      |> inspect()
     end
   end
 
@@ -577,19 +574,19 @@ defmodule Erlex do
   end
 
   defp struct_parts(map_keys) do
-    %{struct_name: struct_name, entries: entries} =
-      Enum.reduce(map_keys, %{struct_name: "", entries: []}, &struct_part/2)
+    %{name: name, entries: entries} =
+      Enum.reduce(map_keys, %{name: "", entries: []}, &struct_part/2)
 
-    %{struct_name: struct_name, entries: Enum.reverse(entries)}
+    %{name: name, entries: Enum.reverse(entries)}
   end
 
-  defp struct_part({:map_entry, {:atom, '\'__struct__\''}, {:atom, struct_name}}, struct_parts) do
-    struct_name =
-      struct_name
+  defp struct_part({:map_entry, {:atom, '\'__struct__\''}, {:atom, name}}, struct_parts) do
+    name =
+      name
       |> atomize()
       |> String.trim("\"")
 
-    Map.put(struct_parts, :struct_name, struct_name)
+    Map.put(struct_parts, :name, name)
   end
 
   defp struct_part(entry, struct_parts = %{entries: entries}) do

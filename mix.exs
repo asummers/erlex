@@ -1,31 +1,20 @@
 defmodule Erlex.MixProject do
   use Mix.Project
 
+  @version "0.2.6"
+  @repo_url "https://github.com/asummers/erlex"
+
   def project do
     [
       app: :erlex,
-      version: "0.2.6",
+      version: @version,
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
       package: package(),
       docs: docs(),
-      test_coverage: [tool: ExCoveralls],
-      dialyzer: [
-        # plt_core_path: ".",
-        plt_add_apps: [:mix, :erts, :kernel, :stdlib],
-        flags: ["-Wunmatched_returns", "-Werror_handling", "-Wrace_conditions", "-Wno_opaque"],
-        ignore_warnings: "dialyzer.ignore_warnings.exs",
-        plt_core_path: "priv/plts",
-        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
-      ],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test
-      ]
+      dialyzer: dialyzer()
     ]
   end
 
@@ -35,12 +24,21 @@ defmodule Erlex.MixProject do
     ]
   end
 
+  defp dialyzer do
+    [
+      plt_add_apps: [:mix, :erts, :kernel, :stdlib],
+      flags: ["-Wunmatched_returns", "-Werror_handling", "-Wrace_conditions", "-Wno_opaque"],
+      ignore_warnings: "dialyzer.ignore_warnings.exs",
+      plt_core_path: "priv/plts",
+      plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+    ]
+  end
+
   defp deps do
     [
-      {:credo, "~> 0.9", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.0", only: :dev, runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.8", only: :test}
+      {:dialyxir, "1.0.0-rc.3", only: :dev, runtime: false, override: true}
     ]
   end
 
@@ -53,8 +51,8 @@ defmodule Erlex.MixProject do
   defp docs() do
     [
       main: "readme",
-      source_url: "https://github.com/asummers/erlex",
-      homepage_url: "https://github.com/asummers/erlex",
+      source_url: @repo_url,
+      homepage_url: @repo_url,
       extras: ["README.md", "CHANGELOG.md"]
     ]
   end
@@ -71,7 +69,7 @@ defmodule Erlex.MixProject do
       ],
       maintainers: ["Andrew Summers"],
       licenses: ["Apache 2.0"],
-      links: %{"GitHub" => "https://github.com/asummers/erlex"}
+      links: %{"GitHub" => @repo_url}
     ]
   end
 end
