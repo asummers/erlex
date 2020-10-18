@@ -9,3 +9,5 @@ erlex-*.tar
 .elixir_ls
 src/parser.erl
 src/lexer.erl
+
+/priv/plts/

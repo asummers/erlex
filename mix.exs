@@ -16,7 +16,9 @@ defmodule Erlex.MixProject do
         # plt_core_path: ".",
         plt_add_apps: [:mix, :erts, :kernel, :stdlib],
         flags: ["-Wunmatched_returns", "-Werror_handling", "-Wrace_conditions", "-Wno_opaque"],
-        ignore_warnings: "dialyzer.ignore_warnings.exs"
+        ignore_warnings: "dialyzer.ignore_warnings.exs",
+        plt_core_path: "priv/plts",
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ],
       preferred_cli_env: [
         coveralls: :test,

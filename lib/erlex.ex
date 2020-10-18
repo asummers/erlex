@@ -138,7 +138,7 @@ defmodule Erlex do
       pretty =
         Enum.map_join([head | tail], "\n\n" <> joiner, fn contract ->
           contract
-          |> to_charlist()
+          # |> to_charlist()
           |> do_pretty_print_contract()
         end)
 
