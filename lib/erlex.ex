@@ -217,13 +217,7 @@ defmodule Erlex do
   end
 
   defp do_pretty_print({:assignment, {:atom, atom}, value}) do
-    name =
-      atom
-      |> deatomize()
-      |> to_string()
-      |> strip_var_version()
-
-    "#{name} = #{do_pretty_print(value)}"
+    "#{normalize_name(atom)} = #{do_pretty_print(value)}"
   end
 
   defp do_pretty_print({:atom, [:_]}) do
@@ -379,7 +373,16 @@ defmodule Erlex do
     %{struct_name: struct_name, entries: entries} = struct_parts(map_keys)
 
     if struct_name do
-      "%#{struct_name}{#{Enum.map_join(entries, ", ", &do_pretty_print/1)}}"
+      entries_to_print =
+        case entries do
+          [{:map_entry, {:atom, [:_]}, {:atom, [:_]}}] ->
+            []
+
+          _ ->
+            entries
+        end
+
+      "%#{struct_name}{#{Enum.map_join(entries_to_print, ", ", &do_pretty_print/1)}}"
     else
       "%{#{Enum.map_join(entries, ", ", &do_pretty_print/1)}}"
     end
@@ -389,13 +392,7 @@ defmodule Erlex do
        when is_tuple(named_type) and is_tuple(type) do
     case named_type do
       {:atom, name} ->
-        name =
-          name
-          |> deatomize()
-          |> to_string()
-          |> strip_var_version()
-
-        "#{name}: #{do_pretty_print(type)}"
+        "#{normalize_name(name)}: #{do_pretty_print(type)}"
 
       other ->
         "#{do_pretty_print(other)}: #{do_pretty_print(type)}"
@@ -406,13 +403,7 @@ defmodule Erlex do
        when is_tuple(named_type) and is_tuple(type) do
     case named_type do
       {:atom, name} ->
-        name =
-          name
-          |> deatomize()
-          |> to_string()
-          |> strip_var_version()
-
-        "#{name} :: #{do_pretty_print(type)}"
+        "#{normalize_name(name)} :: #{do_pretty_print(type)}"
 
       other ->
         "#{do_pretty_print(other)} :: #{do_pretty_print(type)}"
@@ -425,13 +416,7 @@ defmodule Erlex do
         "#{atomize(name)}.#{deatomize(type)}()"
 
       {:atom, name} ->
-        name =
-          name
-          |> deatomize()
-          |> to_string()
-          |> strip_var_version()
-
-        "#{name} :: #{deatomize(type)}()"
+        "#{normalize_name(name)} :: #{deatomize(type)}()"
 
       other ->
         name = do_pretty_print(other)
@@ -632,4 +617,11 @@ defmodule Erlex do
   end
 
   defp deatomize_char(char), do: char
+
+  defp normalize_name(name) do
+    name
+    |> deatomize()
+    |> to_string()
+    |> strip_var_version()
+  end
 end
