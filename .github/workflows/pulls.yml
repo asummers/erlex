@@ -38,7 +38,7 @@ jobs:
       with:
         path: priv/plts
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt-${{ hashFiles('**/priv/plts/dialyzer.plt.hash') }}
-        restore-keys: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt
+        # restore-keys: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt
     - name: Dialyzer
       run: mix dialyzer --halt-exit-status
     - name: Tests
