@@ -1,4 +1,4 @@
-name: Elixir CI
+name: CI Checks
 
 on: push
 
@@ -33,7 +33,5 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt-${{ hashFiles('**/priv/plts/dialyzer.plt.hash') }}
           ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plt
-    - name: Install dependencies
-      run: mix deps.get
-    - name: mix check
-      run: mix check
+    - run: mix deps.get
+    - run: mix check
