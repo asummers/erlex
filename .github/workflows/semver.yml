@@ -1,0 +1,47 @@
+name: Semver
+
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '*'
+jobs:
+  git_ops:
+    runs-on: ubuntu-latest
+    name: Release
+    strategy:
+      matrix:
+        otp: [23]
+        elixir: [1.11.0]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-elixir@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-release-deps-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-release-deps-${{ hashFiles('**/mix.lock') }}
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-release-deps
+      - run: mix deps.get
+      - name: git_ops
+        id: git_ops
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/scripts/git_ops.sh
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.git_ops.outputs.version }}
+          release_name: Release ${{ steps.git_ops.outputs.version }}
+          body: ${{ steps.git_ops.outputs.release_notes }}
+          draft: false
+          prerelease: false
