@@ -37,9 +37,9 @@ defmodule Erlex.MixProject do
   defp deps do
     [
       {:credo, "~> 1.0", only: :dev, runtime: false},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:dialyxir, "1.0.0-rc.3", only: :dev, runtime: false, override: true},
-      {:ex_check, "~> 0.12.0", only: [:dev], runtime: false}
+      {:ex_check, "~> 0.12.0", only: :dev, runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
@@ -53,8 +53,9 @@ defmodule Erlex.MixProject do
     [
       main: "readme",
       source_url: @repo_url,
+      source_ref: @version,
       homepage_url: @repo_url,
-      extras: ["README.md", "CHANGELOG.md"]
+      extras: ["CHANGELOG.md", "README.md"]
     ]
   end
 
@@ -69,8 +70,11 @@ defmodule Erlex.MixProject do
         "src/parser.yrl"
       ],
       maintainers: ["Andrew Summers"],
-      licenses: ["Apache 2.0"],
-      links: %{"GitHub" => @repo_url}
+      licenses: ["Apache-2.0"],
+      links: %{
+        "Changelog" => "https://hexdocs.pm/erlex/changelog.html",
+        "GitHub" => @repo_url
+      }
     ]
   end
 end
