@@ -25,10 +25,7 @@ Before submitting a pull request, make sure all of the following pass:
 
 ```
 mix deps.get
-mix format --check-formatted
-mix compile --force --warnings-as-errors
-mix credo list --strict
-mix test
+mix check
 ```
 
 Steps:

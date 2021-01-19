@@ -1,7 +1,10 @@
 [![Hex version badge](https://img.shields.io/hexpm/v/erlex.svg)](https://hex.pm/packages/erlex)
+[![Hex docs badge](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/erlex/)
+[![Total download badge](https://img.shields.io/hexpm/dt/erlex.svg)](https://hex.pm/packages/erlex)
 [![License badge](https://img.shields.io/hexpm/l/erlex.svg)](https://github.com/asummers/erlex/blob/master/LICENSE.md)
 [![Build status badge](https://img.shields.io/circleci/project/github/asummers/erlex/master.svg)](https://circleci.com/gh/asummers/erlex/tree/master)
 [![Code coverage badge](https://img.shields.io/codecov/c/github/asummers/erlex/master.svg)](https://codecov.io/gh/asummers/erlex/branch/master)
+[![Last Updated badge](https://img.shields.io/github/last-commit/asummers/erlex.svg)](https://github.com/asummers/erlex/commits/master)
 
 # Erlex
 
@@ -64,6 +67,7 @@ iex> Erlex.pretty_print_contract(str)
   binary()
 ) :: Plug.Conn.t()
 ```
+
 ## Contributing
 
 We welcome contributions of all kinds! To get started, click [here](https://github.com/asummers/erlex/blob/master/CONTRIBUTING.md).
