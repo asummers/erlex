@@ -42,7 +42,7 @@ defmodule Erlex do
 
   defp lex(str) do
     try do
-      {:ok, tokens, _} = :lexer.string(str)
+      {:ok, tokens, _} = :erlex_lexer.string(str)
       tokens
     rescue
       _ ->
@@ -52,7 +52,7 @@ defmodule Erlex do
 
   defp parse(tokens) do
     try do
-      {:ok, [first | _]} = :parser.parse(tokens)
+      {:ok, [first | _]} = :erlex_parser.parse(tokens)
       first
     rescue
       _ ->

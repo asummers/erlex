@@ -7,7 +7,7 @@ erl_crash.dump
 *.ez
 erlex-*.tar
 .elixir_ls
-src/parser.erl
-src/lexer.erl
+src/erlex_parser.erl
+src/erlex_lexer.erl
 
 /priv/plts/
