@@ -114,7 +114,7 @@ defmodule Erlex.Test.PretyPrintTest do
   end
 
   test "patterns get pretty printed appropriately" do
-    input = 'pattern {\'ok\', Vuser@1}'
+    input = ~c"pattern {\'ok\', Vuser@1}"
     pretty_printed = Erlex.pretty_print_pattern(input)
 
     expected_output = "{:ok, user}"
@@ -221,7 +221,7 @@ defmodule Erlex.Test.PretyPrintTest do
   end
 
   test "modules with numbers are pretty printed appropriately" do
-    input = 'Elixir.Project.Resources.Components.V1.Actions'
+    input = ~c"Elixir.Project.Resources.Components.V1.Actions"
 
     pretty_printed = Erlex.pretty_print(input)
 
@@ -250,7 +250,7 @@ defmodule Erlex.Test.PretyPrintTest do
   end
 
   test "elixir SSA numbered variables get pretty printed appropriately" do
-    input = '_money@1'
+    input = ~c"_money@1"
 
     pretty_printed = Erlex.pretty_print(input)
 
